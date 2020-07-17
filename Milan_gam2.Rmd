@@ -1,0 +1,74 @@
+---
+title: "GAM Example Milan"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r}
+library(mgcv)
+library(nlme)
+```
+
+Here, we describe fitting a GAM to COVID-19 and environmental data from Milan, Italy.
+First, we read in the .csv file while omitting null values.
+
+```{r}
+milan_full <- read.csv("milan_full.csv")
+milan_full <- na.omit(milan_full)
+```
+
+Then, we create the GAM. RR relative rate of infection (the actual rate of infection divided by the average rate of infection), and we have created a three-day lag behind reported data. We want to see how humidity, temperature, PM2.5, PM10, NO2, and O3 influence the relative rate. We use a gaussian distribution for the GAM with a log link function.
+
+```{r}
+infections.gam <- gam(LAGRR ~ s(Humidity) + s(Temperature) + s(pm25) + s(pm10) + s(no) + s(o3), family=gaussian(link="log"), data=milan_full)
+```
+
+We plot each of the individual splines, which show how each variable influences relative rate if all other variables are held constant.
+
+```{r}
+plot(infections.gam, ylim=c(-1,1),scale=0,se=2, residuals=TRUE, shade=TRUE,pages=1)
+```
+
+Finally, we print a summary of the GAM's results.
+
+```{r}
+summary(infections.gam)
+```
+Plotting the residuals: 
+```{r}
+par(mfrow = c(2,2))
+gam.check(infections.gam)
+```
+Plot of true vs predicted values (same as 4th plot above)
+```{r}
+pred_infectionsgam = predict(infections.gam, type = "response")
+plot(pred_infectionsgam, milan_full$LAGRR, xlab = "Predicted LAGRR", ylab = "True LAGRR")
+abline(0,1)
+```
+Here, I included a smooth for multiple predictors (Temperuate and Humidity to start as they seem like thye could be related). The first method uses a tensor product spline fit, the second method uses a thin plate regression spline fit. I don't have any intuition on how to interpret the plots when smoothing two predictors at a time yet but will look into it more..
+
+```{r}
+infections.gamTE <- gam(LAGRR ~ te(Humidity,Temperature) + s(pm25) + s(pm10) + s(no) + s(o3), family=gaussian(link="log"), data=milan_full)
+summary(infections.gamTE)
+plot(infections.gamTE)
+```
+
+Thin plate splines:
+```{r}
+infections.gamtps <- gam(LAGRR ~ s(Humidity,Temperature) + s(pm25) + s(pm10) + s(no) + s(o3), family=gaussian(link="log"), data=milan_full)
+summary(infections.gamtps)
+plot(infections.gamtps)
+```
+Note that the GCV for the method using tensor product splines is lower than for TPS and the adjusted R^2 is higer for tensor splines as well. 
+
+
+We can use ANOVA to do a quick side-by-side comparison of the three methods:
+```{r}
+anova.gam(infections.gamTE, infections.gamtps, infections.gam)
+```
+Comparison of AIC scores:
+```{r}
+AIC(infections.gamtps, infections.gamTE, infections.gam)
+```
+
