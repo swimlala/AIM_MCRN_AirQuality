@@ -1,0 +1,22 @@
+---
+title: "SaoPaulo_GAM"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(mgcv)
+library(nlme)
+
+sp_full <- read.csv("saopaulo_full.csv")
+sp_full <- na.omit(sp_full)
+
+infections.gam <- gam(Daily ~ s(Humidity, Temperature) + s(Response, pm25) + s(pm10) + s(co) + s(no2) + s(o3), family=gaussian(link="log"), data=sp_full)
+
+plot(infections.gam)
+
+summary(infections.gam)
+```
