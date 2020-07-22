@@ -2,17 +2,17 @@
 %%% AQ Group
 
 %% Constants
-N = 100;
+N = 100;   % size of population
 b_NPI = 1; % parameter of beta influenced by NPI
 b_AQ = 1;  % parameter of beta influenced by air quality
-beta = b_NPI*b_AQ/N; %rate of traveling from S to I, dependent on b_NPI and
-                   %b_AQ
-% beta = b_NPI.*b_AQ; %pairwise multiplication if b_NPI, b_AQ are
+beta = b_NPI*b_AQ/N; % rate of traveling from S to I, dependent on b_NPI and
+                     % b_AQ
+% beta = b_NPI.*b_AQ./N; % pairwise multiplication if b_NPI, b_AQ are
                       % timeseries
 gamma = 0.1; % rate of traveling from I to R
 
 % Integration parameters
-dt = 0.01;     % timestep
+dt = 0.01;     % timestep; can't be much bigger than 0.01 for soln to be stable
 t_end = 110;  % number of days
 time = 0:dt:110; % create time vector of values 0 to t_end of interval dt
 S = zeros(1, length(time)); % empty S vector of length t; will store the number
@@ -25,6 +25,12 @@ R(1) = 0;     % IC of R
 
 %% 4th Order Runge Kutta Integration
 for t = 1:length(time) - 1 % set up for-loop
+    
+   % if we're using a timeseries for beta_NPI and beta_AQ
+   % (ceil will round up to the nearest integer, so that at time t = 0.01,
+   % data from day 1 will be used.
+   % beta = beta(ceil(t));
+   
    Sk1 = dt*dSdt(beta, S(t), I(t)); 
    Ik1 = dt*dIdt(beta, S(t), I(t), gamma);
    Rk1 = dt*dRdt(gamma, I(t));
