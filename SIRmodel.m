@@ -1,6 +1,15 @@
 %%% SIR Model Code 7.12.2020
 %%% AQ Group
 
+% %% Data
+% filename = "saopaulo_full.csv"; % filename for data
+% data_table = readtable(filename);
+% NPI_data = data_table.NPI'; % create row vector of NPI data
+% AQ_data = data_table.Mean_PM25'; % create row vector of AQ data
+% 
+% % Then we create some sort of function of these that relates them to impact
+% % on beta over time.
+
 %% Constants
 N = 100;   % size of population
 b_NPI = 1; % parameter of beta influenced by NPI
