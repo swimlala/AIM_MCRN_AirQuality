@@ -16,7 +16,7 @@ b_NPI = 1; % parameter of beta influenced by NPI
 b_AQ = 1;  % parameter of beta influenced by air quality
 beta = b_NPI*b_AQ/N; % rate of traveling from S to I, dependent on b_NPI and
                      % b_AQ
-% beta = b_NPI.*b_AQ./N; % pairwise multiplication if b_NPI, b_AQ are
+% beta_vec = b_NPI.*b_AQ./N; % pairwise multiplication if b_NPI, b_AQ are
                       % timeseries
 gamma = 0.1; % rate of traveling from I to R
 
@@ -38,7 +38,7 @@ for t = 1:length(time) - 1 % set up for-loop
    % if we're using a timeseries for beta_NPI and beta_AQ
    % (ceil will round up to the nearest integer, so that at time t = 0.01,
    % data from day 1 will be used.
-   % beta = beta(ceil(t*dt));
+   % beta = beta_vec(ceil(t*dt));
    
    Sk1 = dt*dSdt(beta, S(t), I(t)); 
    Ik1 = dt*dIdt(beta, S(t), I(t), gamma);
