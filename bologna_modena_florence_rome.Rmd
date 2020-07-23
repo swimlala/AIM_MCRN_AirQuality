@@ -1,0 +1,50 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+We start by loading in our data tables
+
+```{r}
+require(mgcv)
+bologna <- read.csv("bologna_full.csv")
+bologna <- na.omit(bologna)
+
+modena <- read.csv("modena_full.csv")
+modena <- na.omit(modena)
+
+florence <- read.csv("florence_full.csv")
+florence <- na.omit(florence)
+
+rome <- read.csv("rome_full.csv")
+rome <- na.omit(rome)
+```
+
+Bologna:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=bologna)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
+
+Modena:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=modena)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
+
+Florence:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=florence)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
+
+
+Rome:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=rome)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
