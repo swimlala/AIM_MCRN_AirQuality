@@ -1,0 +1,110 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+We start by loading in our data tables
+
+```{r}
+require(mgcv)
+bologna <- read.csv("bologna_full.csv")
+bologna <- na.omit(bologna)
+
+modena <- read.csv("modena_full.csv")
+modena <- na.omit(modena)
+
+florence <- read.csv("florence_full.csv")
+florence <- na.omit(florence)
+
+rome <- read.csv("rome_full.csv")
+rome <- na.omit(rome)
+
+num_iter <- 30
+```
+
+
+Bologna:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+bologna <- read.csv("bologna_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+climate_lag = 5
+#rep(NA, n) creates a vector of length n filled with NA
+bologna$Temperature.1 <- c(rep(NA, climate_lag),  bologna$Temperature[(1):(nrow(bologna)-climate_lag)]) 
+bologna$Humidity.1 <- c(rep(NA, 5), bologna$Humidity[(1):(nrow(bologna)-5)])
+#push npi back num_lag days
+bologna$npi.1 <- c(rep(NA, num_lag), bologna$npi[(1):(nrow(bologna)-num_lag)])
+#Omit the new NAs
+bologna <- na.omit(bologna)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4), family=poisson(link="log"), data=bologna)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+}
+```
+
+Modena:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+modena <- read.csv("modena_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+climate_lag = 5
+#rep(NA, n) creates a vector of length n filled with NA
+modena$Temperature.1 <- c(rep(NA, climate_lag),  modena$Temperature[(1):(nrow(modena)-climate_lag)]) 
+modena$Humidity.1 <- c(rep(NA, 5), modena$Humidity[(1):(nrow(modena)-5)])
+#push npi back num_lag days
+modena$npi.1 <- c(rep(NA, num_lag), modena$npi[(1):(nrow(modena)-num_lag)])
+#Omit the new NAs
+modena <- na.omit(modena)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4), family=poisson(link="log"), data=modena)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+}
+
+```
+
+Florence:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+florence <- read.csv("florence_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+climate_lag = 5
+#rep(NA, n) creates a vector of length n filled with NA
+florence$Temperature.1 <- c(rep(NA, climate_lag),  florence$Temperature[(1):(nrow(florence)-climate_lag)]) 
+florence$Humidity.1 <- c(rep(NA, 5), florence$Humidity[(1):(nrow(florence)-5)])
+#push npi back num_lag days
+florence$npi.1 <- c(rep(NA, num_lag), florence$npi[(1):(nrow(florence)-num_lag)])
+#Omit the new NAs
+florence <- na.omit(florence)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4), family=poisson(link="log"), data=florence)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+}
+```
+
+
+Rome:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+rome <- read.csv("rome_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+climate_lag = 5
+#rep(NA, n) creates a vector of length n filled with NA
+rome$Temperature.1 <- c(rep(NA, climate_lag),  rome$Temperature[(1):(nrow(rome)-climate_lag)]) 
+rome$Humidity.1 <- c(rep(NA, 5), rome$Humidity[(1):(nrow(rome)-5)])
+#push npi back num_lag days
+rome$npi.1 <- c(rep(NA, num_lag), rome$npi[(1):(nrow(rome)-num_lag)])
+#Omit the new NAs
+rome <- na.omit(rome)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4), family=poisson(link="log"), data=rome)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+}
+```
