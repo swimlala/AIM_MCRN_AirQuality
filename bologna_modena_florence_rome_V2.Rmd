@@ -32,7 +32,7 @@ bologna <- read.csv("bologna_full.csv") #Read in file
 climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 bologna$Temperature.1 <- c(rep(NA, climate_lag),  bologna$Temperature[(1):(nrow(bologna)-climate_lag)]) 
-bologna$Humidity.1 <- c(rep(NA, 5), bologna$Humidity[(1):(nrow(bologna)-5)])
+bologna$Humidity.1 <- c(rep(NA, climate_lag), bologna$Humidity[(1):(nrow(bologna)-climate_lag)])
 #push npi back num_lag days
 bologna$npi.1 <- c(rep(NA, num_lag), bologna$npi[(1):(nrow(bologna)-num_lag)])
 #Omit the new NAs
@@ -53,7 +53,7 @@ modena <- read.csv("modena_full.csv") #Read in file
 climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 modena$Temperature.1 <- c(rep(NA, climate_lag),  modena$Temperature[(1):(nrow(modena)-climate_lag)]) 
-modena$Humidity.1 <- c(rep(NA, 5), modena$Humidity[(1):(nrow(modena)-5)])
+modena$Humidity.1 <- c(rep(NA, climate_lag), modena$Humidity[(1):(nrow(modena)-climate_lag)])
 #push npi back num_lag days
 modena$npi.1 <- c(rep(NA, num_lag), modena$npi[(1):(nrow(modena)-num_lag)])
 #Omit the new NAs
@@ -75,7 +75,7 @@ florence <- read.csv("florence_full.csv") #Read in file
 climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 florence$Temperature.1 <- c(rep(NA, climate_lag),  florence$Temperature[(1):(nrow(florence)-climate_lag)]) 
-florence$Humidity.1 <- c(rep(NA, 5), florence$Humidity[(1):(nrow(florence)-5)])
+florence$Humidity.1 <- c(rep(NA, climate_lag), florence$Humidity[(1):(nrow(florence)-climate_lag)])
 #push npi back num_lag days
 florence$npi.1 <- c(rep(NA, num_lag), florence$npi[(1):(nrow(florence)-num_lag)])
 #Omit the new NAs
@@ -97,7 +97,7 @@ rome <- read.csv("rome_full.csv") #Read in file
 climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 rome$Temperature.1 <- c(rep(NA, climate_lag),  rome$Temperature[(1):(nrow(rome)-climate_lag)]) 
-rome$Humidity.1 <- c(rep(NA, 5), rome$Humidity[(1):(nrow(rome)-5)])
+rome$Humidity.1 <- c(rep(NA, climate_lag), rome$Humidity[(1):(nrow(rome)-climate_lag)])
 #push npi back num_lag days
 rome$npi.1 <- c(rep(NA, num_lag), rome$npi[(1):(nrow(rome)-num_lag)])
 #Omit the new NAs
