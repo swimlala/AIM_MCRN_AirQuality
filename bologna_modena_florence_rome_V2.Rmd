@@ -2,6 +2,15 @@
 title: "R Notebook"
 output: html_notebook
 ---
+Whats in V2:
+GAM models using Humidity, Temperature, and NPIs
+
+Climate variables (temperature, humidity) lagged so that daily cases are predicted using climate variables from n=climate_lag days prior
+
+NPI lagged so that daily cases are predicted using NPI data from n=0,...,num_iter days prior
+
+
+
 
 We start by loading in our data tables
 
@@ -20,6 +29,7 @@ rome <- read.csv("rome_full.csv")
 rome <- na.omit(rome)
 
 num_iter <- 30
+climate_lag <- 4
 ```
 
 
@@ -29,7 +39,6 @@ for(i in 0:num_iter) {
 num_lag <- i
 bologna <- read.csv("bologna_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
-climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 bologna$Temperature.1 <- c(rep(NA, climate_lag),  bologna$Temperature[(1):(nrow(bologna)-climate_lag)]) 
 bologna$Humidity.1 <- c(rep(NA, climate_lag), bologna$Humidity[(1):(nrow(bologna)-climate_lag)])
@@ -50,7 +59,6 @@ for(i in 0:num_iter) {
 num_lag <- i
 modena <- read.csv("modena_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
-climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 modena$Temperature.1 <- c(rep(NA, climate_lag),  modena$Temperature[(1):(nrow(modena)-climate_lag)]) 
 modena$Humidity.1 <- c(rep(NA, climate_lag), modena$Humidity[(1):(nrow(modena)-climate_lag)])
@@ -72,7 +80,6 @@ for(i in 0:num_iter) {
 num_lag <- i
 florence <- read.csv("florence_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
-climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 florence$Temperature.1 <- c(rep(NA, climate_lag),  florence$Temperature[(1):(nrow(florence)-climate_lag)]) 
 florence$Humidity.1 <- c(rep(NA, climate_lag), florence$Humidity[(1):(nrow(florence)-climate_lag)])
@@ -94,7 +101,6 @@ for(i in 0:num_iter) {
 num_lag <- i
 rome <- read.csv("rome_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
-climate_lag = 5
 #rep(NA, n) creates a vector of length n filled with NA
 rome$Temperature.1 <- c(rep(NA, climate_lag),  rome$Temperature[(1):(nrow(rome)-climate_lag)]) 
 rome$Humidity.1 <- c(rep(NA, climate_lag), rome$Humidity[(1):(nrow(rome)-climate_lag)])
