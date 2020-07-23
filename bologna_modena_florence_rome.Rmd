@@ -18,33 +18,158 @@ florence <- na.omit(florence)
 
 rome <- read.csv("rome_full.csv")
 rome <- na.omit(rome)
+
+num_iter <- 30
 ```
+
+First lets look at effects of NPI
+
 
 Bologna:
 ```{r}
-infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=bologna)
-plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+for(i in 0:num_iter) {
+num_lag <- i
+bologna <- read.csv("bologna_full.csv")
+bologna$Daily.1 <- c(bologna$Daily[(1+num_lag):(nrow(bologna))], rep(NA, num_lag))
+bologna <- na.omit(bologna)
+
+infections.gam <- gam(Daily.1 ~ s(NPI, k=5), family=poisson(link="log"), data=bologna)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
 summary(infections.gam)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+
+}
 ```
 
 Modena:
 ```{r}
-infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=modena)
-plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+for(i in 0:num_iter) {
+num_lag <- i
+modena <- read.csv("modena_full.csv")
+modena$Daily.1 <- c(modena$Daily[(1+num_lag):(nrow(modena))], rep(NA, num_lag))
+modena <- na.omit(modena)
+
+infections.gam <- gam(Daily.1 ~  s(NPI, k=5), family=poisson(link="log"), data=modena)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
 summary(infections.gam)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+
+}
 ```
 
 Florence:
 ```{r}
-infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=florence)
-plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+for(i in 0:num_iter) {
+num_lag <- i
+florence <- read.csv("florence_full.csv")
+florence$Daily.1 <- c(florence$Daily[(1+num_lag):(nrow(florence))], rep(NA, num_lag))
+florence <- na.omit(florence)
+
+infections.gam <- gam(Daily.1 ~ s(NPI, k=5), family=poisson(link="log"), data=florence)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
 summary(infections.gam)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+
+}
 ```
 
 
 Rome:
 ```{r}
-infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=rome)
-plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+for(i in 0:num_iter) {
+num_lag <- i
+rome <- read.csv("rome_full.csv")
+rome$Daily.1 <- c(rome$Daily[(num_lag+1):(nrow(rome))], rep(NA, num_lag))
+rome <- na.omit(rome)
+
+infections.gam <- gam(Daily.1 ~  s(NPI, k=5), family=poisson(link="log"), data=rome)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+Now lets look at Temp/Humidity
+
+
+Bologna:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+bologna <- read.csv("bologna_full.csv")
+bologna$Daily.1 <- c(bologna$Daily[(1+num_lag):(nrow(bologna))], rep(NA, num_lag))
+bologna <- na.omit(bologna)
+
+infections.gam <- gam(Daily.1 ~ s(Temperature) + s(Humidity), family=poisson(link="log"), data=bologna)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
 summary(infections.gam)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+
+}
+```
+
+Modena:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+modena <- read.csv("modena_full.csv")
+modena$Daily.1 <- c(modena$Daily[(1+num_lag):(nrow(modena))], rep(NA, num_lag))
+modena <- na.omit(modena)
+
+infections.gam <- gam(Daily.1 ~  s(Temperature) + s(Humidity), family=poisson(link="log"), data=modena)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+summary(infections.gam)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+
+}
+```
+
+Florence:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+florence <- read.csv("florence_full.csv")
+florence$Daily.1 <- c(florence$Daily[(1+num_lag):(nrow(florence))], rep(NA, num_lag))
+florence <- na.omit(florence)
+
+infections.gam <- gam(Daily.1 ~ s(Temperature) + s(Humidity), family=poisson(link="log"), data=florence)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+summary(infections.gam)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+
+}
+```
+
+
+Rome:
+```{r}
+for(i in 0:num_iter) {
+num_lag <- i
+rome <- read.csv("rome_full.csv")
+rome$Daily.1 <- c(rome$Daily[(num_lag+1):(nrow(rome))], rep(NA, num_lag))
+rome <- na.omit(rome)
+
+infections.gam <- gam(Daily.1 ~  s(Temperature) + s(Humidity), family=poisson(link="log"), data=rome)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+print(cat("Day:", i, "R-sq", summary(infections.gam)$r.sq))
+}
 ```
