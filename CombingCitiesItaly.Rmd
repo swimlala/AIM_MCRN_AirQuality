@@ -40,5 +40,10 @@ rome_full$Population = 2318895
 brescia_full$Population = 184826
 
 italy_full <- bind_rows(bologna_full, brescia_full, parma_full, modena_full, florence_full, milan_full, turin_full, rome_full)
+
+italy_full$Rate = italy_full$Daily/italy_full$Population
+
+save(italy_full, file ="italy_full.RData")
+write_csv(italy_full, "italy_full.csv")
 ```
 
