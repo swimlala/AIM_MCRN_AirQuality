@@ -1,0 +1,50 @@
+---
+title: "Turin_Milan_Brescia_Parma"
+output: pdf_document
+---
+
+Loading packages, csvs.
+```{r}
+library(mgcv)
+library(nlme)
+turin <- read.csv("turin_full.csv")
+turin <- na.omit(turin)
+
+milan <- read.csv("milan_full.csv")
+milan <- na.omit(milan)
+
+brescia <- read.csv("brescia_full.csv")
+brescia <- na.omit(brescia)
+
+parma <- read.csv("parma_full.csv")
+parma <- na.omit(parma)
+```
+
+Turin:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=turin)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
+
+Milan:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=milan)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
+
+Brescia:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=brescia)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
+
+
+Parma:
+```{r}
+infections.gam <- gam(Daily ~ s(Humidity) + s(Temperature) + s(NPI), family=gaussian(link="log"), data=parma)
+plot(infections.gam,scale=0,se=2, ylim=c(-1,1), residuals=TRUE, shade=TRUE,pages=1)
+summary(infections.gam)
+```
