@@ -1,0 +1,115 @@
+---
+title: "Turin_Milan_Brescia_Parma_V2"
+output: pdf_document
+---
+
+In V3, we fix the climate lag at 4 days and the NPI lag at 21 days. We run individual GAMs for each city accounting for temperature, humidity, and PM2.5.
+
+Loading packages, csvs.
+```{r}
+library(mgcv)
+library(nlme)
+
+turin <- read.csv("turin_full.csv")
+turin <- na.omit(turin)
+
+milan <- read.csv("milan_full.csv")
+milan <- na.omit(milan)
+
+brescia <- read.csv("brescia_full.csv")
+brescia <- na.omit(brescia)
+
+parma <- read.csv("parma_full.csv")
+parma <- na.omit(parma)
+```
+
+Define lag variables. 
+```{r}
+num_lag <- 21
+climate_lag <- 4
+```
+
+Turin:
+```{r}
+turin <- read.csv("turin_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+#rep(NA, n) creates a vector of length n filled with NA
+turin$Temperature.1 <- c(rep(NA, climate_lag),  turin$Temperature[(1):(nrow(turin)-climate_lag)]) 
+turin$Humidity.1 <- c(rep(NA, climate_lag), turin$Humidity[(1):(nrow(turin)-climate_lag)])
+turin$pm25.1 <- c(rep(NA, climate_lag), turin$pm25[(1):(nrow(turin)-climate_lag)])
+
+
+#push npi back num_lag days
+turin$npi.1 <- c(rep(NA, num_lag), turin$npi[(1):(nrow(turin)-num_lag)])
+#Omit the new NAs
+turin <- na.omit(turin)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) + s(pm25.1), family=poisson(link="log"), data=turin)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+
+```
+
+Milan:
+```{r}
+
+milan <- read.csv("milan_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+#rep(NA, n) creates a vector of length n filled with NA
+milan$Temperature.1 <- c(rep(NA, climate_lag),  milan$Temperature[(1):(nrow(milan)-climate_lag)]) 
+milan$Humidity.1 <- c(rep(NA, climate_lag), milan$Humidity[(1):(nrow(milan)-climate_lag)])
+milan$pm25.1 <- c(rep(NA, climate_lag), milan$pm25[(1):(nrow(milan)-climate_lag)])
+
+
+#push npi back num_lag days
+milan$npi.1 <- c(rep(NA, num_lag), milan$npi[(1):(nrow(milan)-num_lag)])
+#Omit the new NAs
+milan <- na.omit(milan)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) + s(pm25.1), family=poisson(link="log"), data=milan)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+```
+
+Brescia:
+```{r}
+brescia <- read.csv("brescia_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+#rep(NA, n) creates a vector of length n filled with NA
+brescia$Temperature.1 <- c(rep(NA, climate_lag),  brescia$Temperature[(1):(nrow(brescia)-climate_lag)]) 
+brescia$Humidity.1 <- c(rep(NA, climate_lag), brescia$Humidity[(1):(nrow(brescia)-climate_lag)])
+brescia$pm25.1 <- c(rep(NA, climate_lag), brescia$pm25[(1):(nrow(brescia)-climate_lag)])
+
+
+#push npi back num_lag days
+brescia$npi.1 <- c(rep(NA, num_lag), brescia$npi[(1):(nrow(brescia)-num_lag)])
+#Omit the new NAs
+brescia <- na.omit(brescia)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) + s(pm25.1), family=poisson(link="log"), data=brescia)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+```
+
+
+Parma:
+```{r}
+
+parma <- read.csv("parma_full.csv") #Read in file
+#Push temperature&humidity data back climate_lag days by adding empty data in front
+#rep(NA, n) creates a vector of length n filled with NA
+parma$Temperature.1 <- c(rep(NA, climate_lag),  parma$Temperature[(1):(nrow(parma)-climate_lag)]) 
+parma$Humidity.1 <- c(rep(NA, climate_lag), parma$Humidity[(1):(nrow(parma)-climate_lag)])
+parma$pm25.1 <- c(rep(NA, climate_lag), parma$pm25[(1):(nrow(parma)-climate_lag)])
+
+
+#push npi back num_lag days
+parma$npi.1 <- c(rep(NA, num_lag), parma$npi[(1):(nrow(parma)-num_lag)])
+#Omit the new NAs
+parma <- na.omit(parma)
+
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) + s(pm25.1), family=poisson(link="log"), data=parma)
+plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
+title(main = i)
+
+```
