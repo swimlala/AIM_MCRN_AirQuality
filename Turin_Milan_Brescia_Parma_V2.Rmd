@@ -3,7 +3,7 @@ title: "Turin_Milan_Brescia_Parma_V2"
 output: pdf_document
 ---
 
-Like in the turin etc. V2, here, we use NPIs, humidity, and temp in the GAMs. Climate variables are lagged n = climate_lag days. NPI is lagged from n = 0 to num_iter days.
+Here, we use NPIs, humidity, and temp in the GAMs. Climate variables are lagged n = climate_lag days. NPI is lagged from n = 0 to num_iter days.
 
 Loading packages, csvs.
 ```{r}
