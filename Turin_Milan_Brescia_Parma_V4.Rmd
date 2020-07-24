@@ -3,7 +3,7 @@ title: "Turin_Milan_Brescia_Parma_V2"
 output: pdf_document
 ---
 
-In V3, we fix the climate lag at 4 days and the NPI lag at 21 days. We run individual GAMs for each city accounting for temperature, humidity, and PM2.5, and now NO2.
+In V4, we fix the climate lag at 4 days and the NPI lag at 21 days. We run individual GAMs for each city accounting for temperature, humidity, and PM2.5, and now NO2.
 
 Loading packages, csvs.
 ```{r}
