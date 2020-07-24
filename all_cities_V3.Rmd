@@ -33,14 +33,14 @@ florence <- na.omit(florence)
 rome <- read.csv("rome_full.csv")
 rome <- na.omit(rome)
 
-num_iter <- 30
-climate_lag <- 6
+num_lag <- 21
+climate_lag <- 4
 ```
 
 
 Bologna:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 bologna <- read.csv("bologna_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
@@ -63,7 +63,7 @@ title(main = i)
 
 Modena:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 modena <- read.csv("modena_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
@@ -86,7 +86,7 @@ title(main = i)
 
 Florence:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 florence <- read.csv("florence_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
@@ -109,7 +109,7 @@ title(main = i)
 
 Rome:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 rome <- read.csv("rome_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
