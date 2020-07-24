@@ -47,7 +47,7 @@ milan$npi.1 <- c(rep(NA, num_lag), milan$npi[(1):(nrow(milan)-num_lag)])
 #Omit the new NAs
 milan <- na.omit(milan)
 
-infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) + s(pm25.1) + s(no2.1), family=poisson(link="log"), data=milan)
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4), family=poisson(link="log"), data=milan)
 plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
 ```
 
@@ -67,7 +67,7 @@ brescia$npi.1 <- c(rep(NA, num_lag), brescia$npi[(1):(nrow(brescia)-num_lag)])
 #Omit the new NAs
 brescia <- na.omit(brescia)
 
-infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) + s(pm25.1) + s(no2.1), family=poisson(link="log"), data=brescia)
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4), family=poisson(link="log"), data=brescia)
 plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
 ```
 
@@ -89,13 +89,13 @@ parma$npi.1 <- c(rep(NA, num_lag), parma$npi[(1):(nrow(parma)-num_lag)])
 #Omit the new NAs
 parma <- na.omit(parma)
 
-infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) + s(pm25.1) + s(no2.1), family=poisson(link="log"), data=parma)
+infections.gam <- gam(Daily ~ s(Temperature.1) + s(Humidity.1) +s(npi.1, k=4) , family=poisson(link="log"), data=parma)
 plot(infections.gam,scale=0,se=2, shade=TRUE,pages=1)
 
 ```
 Bologna:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 bologna <- read.csv("bologna_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
@@ -115,7 +115,7 @@ title(main = i)
 
 Modena:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 modena <- read.csv("modena_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
@@ -136,7 +136,7 @@ title(main = i)
 
 Florence:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 florence <- read.csv("florence_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
@@ -157,7 +157,7 @@ title(main = i)
 
 Rome:
 ```{r}
-for(i in 0:num_iter) {
+for(i in num_lag:num_lag) {
 num_lag <- i
 rome <- read.csv("rome_full.csv") #Read in file
 #Push temperature&humidity data back climate_lag days by adding empty data in front
