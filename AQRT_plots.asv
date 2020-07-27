@@ -1,0 +1,13 @@
+%% Data
+
+cities = ["bologna", "florence", "rome", "turin"];
+
+for i = 1:length(cities)
+    filename = cities(i) + "_airRT.csv"; % filename for data
+    data_table = readtable(filename);
+    RT = data_table.mean'; % create row vector of NPI data
+    AQ = data_table.pm25'; % create row vector of AQ data
+    
+    figure()
+    plot(RT, AQ, 'markersize', 15
+end
