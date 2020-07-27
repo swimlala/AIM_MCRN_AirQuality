@@ -16,3 +16,14 @@ for i = 1:length(cities)
     xlabel("PM_{2.5} (\mu g/cm^2)")
     ylabel("R_t")
 end
+
+% for i = 1:length(cities)
+%     filename = cities(i) + "_airRT.csv"; % filename for data
+%     data_table = readtable(filename);
+%     cases = data_table.Daily';
+%     
+%     figure(5)
+%     subplot(2, 2, i)
+%     plot(cases, '.', 'markersize', 15)
+%     title(cities(i))
+% end
