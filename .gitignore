@@ -10,4 +10,8 @@ all_cities_V3.knit.md
 all_cities_V3.nb.html
 .Rhistory
 .Rhistory
+<<<<<<< HEAD
 .Rproj.user
+=======
+.DS_Store
+>>>>>>> e7a8a75cca87e9337d210f887ee7546baec6904b
