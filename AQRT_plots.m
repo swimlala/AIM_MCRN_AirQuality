@@ -1,6 +1,6 @@
 %% Data
 
-cities = ["bologna", "florence", "rome", "turin"];
+cities = ["bologna", "florence", "rome", "turin", "brescia", "parma", "milan", "modena"];
 
 % for i = 1:length(cities)
 %     filename = cities(i) + "_airRT.csv"; % filename for data
@@ -29,6 +29,7 @@ for i = 1:length(cities)
         AQ = data_table.pm25(1:end-3)';
         RT = data_table.mean(1:end-3)';
     end
+
     AQ = str2double(AQ);
     
     AQ_mean = zeros(1, 21);
@@ -41,26 +42,56 @@ for i = 1:length(cities)
         week = week + 7;
     end
     
-    figure(1)
-    hold on;
-    plot(AQ_mean, 'Marker', '.', 'Markersize', 15)
+%     AQ_move = movmean(AQ, 7);
+%     RT_move = movmean(RT, 7);
+%     
+%     figure(1)
+%     hold on;
+%     plot(AQ_mean(3), 'Marker', '.', 'Markersize', 15)
+%     legend(cities)
+%     xlabel("week")
+%     ylabel("Mean PM_{2.5}")
+%     
+%     figure(2)
+%     hold on;
+%     plot(RT_mean(3), 'Marker', '.', 'Markersize', 15)
+%     legend(cities)
+%     xlabel("week")
+%     ylabel("Mean R_t")
+
+    for x = 1:20
+        subplot(4, 5, x);
+        hold on;
+        if cities(i) == "modena"
+            plot(AQ_mean(x), RT_mean(x), '.k', 'Markersize', 15)
+        else
+            plot(AQ_mean(x), RT_mean(x), '.', 'Markersize', 15)
+        end
+        ylabel("Mean RT")
+        xlabel("Mean AQ")
+        title(['Wk ', num2str(x)]);
+    end
     legend(cities)
-    xlabel("week")
-    ylabel("Mean PM_{2.5}")
+
     
-    figure(2)
-    hold on;
-    plot(RT_mean, 'Marker', '.', 'Markersize', 15)
-    legend(cities)
-    xlabel("week")
-    ylabel("Mean R_t")
-    
-    figure(3)
-    hold on;
-    plot(RT_mean, AQ_mean, '.', 'Markersize', 15)
-    legend(cities)
-    xlabel("RT")
-    ylabel("Mean AQ")
+%     figure(4)
+%     hold on;
+%     plot(AQ_move(1), 'Marker', '.', 'Markersize', 15)
+%     legend(cities)
+%     ylabel("7-day Moving Average PM_{2.5}")
+%     
+%     figure(5)
+%     hold on;
+%     plot(RT_move, 'Marker', '.', 'Markersize', 15)
+%     legend(cities)
+%     ylabel("7-day Moving Average R_t")
+%     
+%     figure(6)
+%     hold on;
+%     plot(AQ_move, RT_move, '.', 'Markersize', 15)
+%     legend(cities)
+%     ylabel("7-day RT")
+%     xlabel("7-day AQ")
 end
 
 % for i = 1:length(cities)

@@ -29,6 +29,8 @@ for i = 1:length(cities)
         AQ = data_table.pm25(1:end-3)';
         RT = data_table.mean(1:end-3)';
     end
+    AQ = AQ(
+    RT = RT(
     AQ = str2double(AQ);
     
     AQ_mean = zeros(1, 21);
@@ -41,13 +43,48 @@ for i = 1:length(cities)
         week = week + 7;
     end
     
+    AQ_move = movmean(AQ, 7);
+    RT_move = movmean(RT, 7);
+    
     figure(1)
     hold on;
-    plot(AQ_mean)
+    plot(AQ_mean, 'Marker', '.', 'Markersize', 15)
     legend(cities)
     xlabel("week")
-    ylabel("PM_{2.5}")
+    ylabel("Mean PM_{2.5}")
     
+    figure(2)
+    hold on;
+    plot(RT_mean, 'Marker', '.', 'Markersize', 15)
+    legend(cities)
+    xlabel("week")
+    ylabel("Mean R_t")
+    
+    figure(3)
+    hold on;
+    plot(AQ_mean, RT_mean, '.', 'Markersize', 15)
+    legend(cities)
+    ylabel("RT")
+    xlabel("Mean AQ")
+    
+    figure(4)
+    hold on;
+    plot(AQ_move, 'Marker', '.', 'Markersize', 15)
+    legend(cities)
+    ylabel("7-day Moving Average PM_{2.5}")
+    
+    figure(5)
+    hold on;
+    plot(RT_move, 'Marker', '.', 'Markersize', 15)
+    legend(cities)
+    ylabel("7-day Moving Average R_t")
+    
+    figure(6)
+    hold on;
+    plot(AQ_move, RT_move, '.', 'Markersize', 15)
+    legend(cities)
+    ylabel("7-day RT")
+    xlabel("7-day AQ")
 end
 
 % for i = 1:length(cities)
