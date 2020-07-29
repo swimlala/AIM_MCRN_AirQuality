@@ -68,7 +68,7 @@ for i = 1:length(cities)
             plot(AQ_mean(x), RT_mean(x), '.', 'Markersize', 15)
         end
         ylabel("Mean RT")
-        xlabel("Mean AQ")
+        xlabel("Mean PM_{2.5}")
         title(['Wk ', num2str(x)]);
     end
     legend(cities)
