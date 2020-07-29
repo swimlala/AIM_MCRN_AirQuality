@@ -42,36 +42,41 @@ for i = 1:length(cities)
         week = week + 7;
     end
     
-%     AQ_move = movmean(AQ, 7);
-%     RT_move = movmean(RT, 7);
-%     
+    AQ_move = movmean(AQ, 7);
+    RT_move = movmean(RT, 7);
+    
 %     figure(1)
 %     hold on;
-%     plot(AQ_mean(3), 'Marker', '.', 'Markersize', 15)
+%     plot(AQ_mean, 'Marker', '.', 'Markersize', 15)
 %     legend(cities)
 %     xlabel("week")
 %     ylabel("Mean PM_{2.5}")
 %     
-%     figure(2)
-%     hold on;
-%     plot(RT_mean(3), 'Marker', '.', 'Markersize', 15)
-%     legend(cities)
-%     xlabel("week")
-%     ylabel("Mean R_t")
-
-    for x = 1:20
-        subplot(4, 5, x);
-        hold on;
-        if cities(i) == "modena"
-            plot(AQ_mean(x), RT_mean(x), '.k', 'Markersize', 15)
-        else
-            plot(AQ_mean(x), RT_mean(x), '.', 'Markersize', 15)
-        end
-        ylabel("Mean RT")
-        xlabel("Mean PM_{2.5}")
-        title(['Wk ', num2str(x)]);
-    end
+    figure(2)
+    hold on;
+    plot(RT_mean, 'Marker', '.', 'Markersize', 15)
     legend(cities)
+    xlabel("week")
+    ylabel("Weekly Mean R_{effective}")
+%     
+%     figure()
+%     plot(AQ_mean, RT_mean, '.', 'Markersize', 15)
+
+%     for x = 1:20
+%         subplot(4, 5, x);
+%         hold on;
+%         if cities(i) == "modena"
+%             plot(AQ_mean(x), RT_mean(x), '.k', 'Markersize', 15)
+%         else
+%             plot(AQ_mean(x), RT_mean(x), '.', 'Markersize', 15)
+%         end
+%         ylabel("Mean RT")
+%         xlim([0, 140])
+%         ylim([0, 2])
+%         xlabel("Mean PM_{2.5}")
+%         title(['Wk ', num2str(x)]);
+%     end
+%     legend(cities)
 
     
 %     figure(4)
