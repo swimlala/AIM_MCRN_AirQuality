@@ -21,14 +21,14 @@ cities = ["bologna", "florence", "rome", "turin", "brescia", "parma", "milan", "
 for i = 1:length(cities)
     filename = cities(i) + "_airRT.csv"; % filename for data
     data_table = readtable(filename);
-    if data_table.Date(1) == datetime(2020,02,23)
-        %cut off mismatched day
-        AQ = data_table.pm25(2:end-3)';
-        RT = data_table.mean(2:end-3)';
-    else
-        AQ = data_table.pm25(1:end-3)';
-        RT = data_table.mean(1:end-3)';
+    %cut off mismatched day
+    z = 1;
+    while data_table.Date(z) ~= datetime(2020, 02, 24)
+        z = z + 1;
     end
+    AQ = data_table.pm25(z:z + 147)';
+    RT = data_table.mean(z:z + 147)';
+
 
     AQ = str2double(AQ);
     
