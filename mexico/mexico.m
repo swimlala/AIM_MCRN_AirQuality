@@ -1,5 +1,5 @@
 mexico_table = readtable("big_mexico.csv");
-%make a table of only positives so we can go faster
+% make a table of only positives so we can go faster
 positives_table = mexico_table(mexico_table.RESULTADO == 1,:); %RESULTADO = 1 means positive, 2 is negative, 3 is waiting on result
 
 %number of cities in each state
@@ -20,3 +20,30 @@ for state = 1:32
     end
 end
 result = result';
+
+
+
+
+
+% input_cities = zeros(25, 3);
+% state = 1;
+% city = 2;
+% name = 3;
+% names = ["Puebla", "Iztapalapa", "Leon", "Gustavo A Madero", "Mexicali", "Ecatepec de Morelos", "Tlalpan", "Monterrey", "Merida", "Alvaro Obregon", "Veracruz", "Coyoacan", "Nezahualcoyotl", "Xochimilco", "Guadalajara", "Culiacan", "Azcapotzalco", "Cuauhtemoc", "Toluca", "Reynosa", "Tijuana", "Iztacalco", "Juarez", "Matamoros", "Guadalupe"];
+% cities = [114, 7, 20, 5, 2, 33, 12, 39, 50, 10, 193, 3, 58, 13, 39, 6, 2, 15, 106, 32, 4, 6, 37, 22, 26];
+% states = [21, 9, 11, 9, 2, 15, 9, 19, 31, 9, 30, 9, 15, 9, 14, 25, 9, 9, 15, 28, 2, 9, 8, 28, 19];
+% input_cities(:,name) = names';
+% input_cities(:, city) = cities';
+% input_cities(:, state) = states';
+% 
+% input_cities = array2table(input_cities, 'VariableNames', {'state', 'city', 'name'});
+% input_cities.name = names';
+% 
+% 
+% writetable(input_cities, "mexico_coords.csv")
+
+
+
+
+
+
